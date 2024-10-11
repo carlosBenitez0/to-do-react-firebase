@@ -1,18 +1,16 @@
 .card {
-    box-shadow:
-        rgba(0, 0, 0, 0.2) 0px 5px 15px,
+    border-radius: 23px;
+    background: #dcdcdc;
+    box-shadow: 5px 5px 11px #797979,
+        -5px -5px 11px #ffffff;
 
-        rgba(0, 0, 0, 0.1) 0px 10px 20px,
 
-        rgba(0, 0, 0, 0.05) 0px 15px 40px;
-
-    border-radius: 12px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 
 .card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-5px);
 
     box-shadow:
         rgba(0, 0, 0, 0.3) 0px 15px 25px,
@@ -20,5 +18,29 @@
         rgba(0, 0, 0, 0.15) 0px 20px 40px;
 
 }
+
+.form {
+    border-radius: 23px;
+    background: #dcdcdc;
+    box-shadow: 5px 5px 11px #797979,
+        -5px -5px 11px #ffffff;
+}
+
+.add-shadow {
+    border-radius: 18px;
+    background: #e0e0e0;
+    box-shadow: inset 5px 5px 10px #bebebe,
+        inset -5px -5px 10px #ffffff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.add-shadow:hover {
+    border-radius: 18px;
+    background: #e0e0e0;
+    box-shadow: -3px -3px 10px #bebebe inset,
+        3px 3px 10px #ffffff inset;
+}
+
+
 
 /* Para las tareas box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset; */
