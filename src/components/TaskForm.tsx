@@ -3,7 +3,7 @@ export const TaskForm = () => {
     <form className="form flex items-center rounded-lg">
       <input
         type="text"
-        className="p-2 w-full bg-transparent outline-none border-none pl-5 py-2"
+        className="p-2 w-full bg-transparent outline-none border-none pl-5 py-2 text-[#323232]"
         name="task_name"
         placeholder="Write a task"
       />
