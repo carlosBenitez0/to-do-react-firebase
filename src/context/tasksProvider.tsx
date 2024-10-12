@@ -1,0 +1,31 @@
+import { createContext, ReactNode, useContext, useState } from "react";
+import { getTasks } from "../services/todoApi";
+
+const TasksContext = createContext([]);
+
+export const TaskProvider = ({ children }: { children: ReactNode }) => {
+  const [taskList, setTaskList] = useState([]);
+
+  const getAllTasks = async () => {
+    const tasks = await getTasks();
+    setTaskList(tasks);
+  };
+
+  const setCompleted = (id: number, task: string, completed: boolean) => {
+    // TODO
+  };
+  return (
+    <TasksContext.Provider value={{ taskList, getAllTasks, setCompleted }}>
+      {children}
+    </TasksContext.Provider>
+  );
+};
+
+export const useTasks = () => {
+  const context = useContext(TasksContext);
+  if (context === undefined) {
+    throw new Error("TasksContext not working");
+  }
+
+  return context;
+};
