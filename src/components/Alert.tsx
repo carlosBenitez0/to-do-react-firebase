@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useTasks } from "../context/tasksProvider";
 import { IoAdd } from "react-icons/io5";
+import { FiEdit3 } from "react-icons/fi";
 
 import { FiTrash } from "react-icons/fi";
 
@@ -26,17 +27,18 @@ export const Alert = () => {
       case "add":
         return {
           icon: <IoAdd />,
-          message: "Tarea agregada!",
+          message: "Task added!",
           style: {
             backgroundColor: "#d4edda",
             borderColor: "#c3e6cb",
             color: "#155724",
           },
         };
+
       case "delete":
         return {
           icon: <FiTrash />,
-          message: "Tarea eliminada!",
+          message: "Task deleted!",
           style: {
             backgroundColor: "#f8d7da",
             borderColor: "#f5c6cb",
@@ -44,13 +46,14 @@ export const Alert = () => {
           },
         };
       case "":
+      case "edit":
         return {
-          icon: <FiTrash />,
-          message: "Tarea eliminada!",
+          icon: <FiEdit3 />,
+          message: "Task edited!",
           style: {
-            backgroundColor: "#f8d7da",
-            borderColor: "#f5c6cb",
-            color: "#721c24",
+            backgroundColor: "#fff3cd",
+            borderColor: "#ffeeba",
+            color: "#856404",
           },
         };
 
