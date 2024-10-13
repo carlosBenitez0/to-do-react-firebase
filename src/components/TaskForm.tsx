@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTasks } from "../context/tasksProvider";
 import { addTask, updateTask } from "../services/todoApi";
 import { IoMdClose } from "react-icons/io";
@@ -14,20 +14,31 @@ export const TaskForm = () => {
     setTaskState,
     setTaskId,
   } = useTasks();
+
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   inputRef.current?.focus();
 
   const addNewTask = async (e) => {
     e.preventDefault();
+
+    // Limpiar alertas anteriores
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      setTimeoutId(null);
+    }
+
     if (inputValue.trim().length <= 0) {
       if (inputRef.current) {
         const task = inputRef?.current?.value;
         const result = await addTask(task);
-        if (result == 1) {
+        if (result === 1) {
           setShowAlert("add");
-          setTimeout(() => {
+          const newTimeoutId = setTimeout(() => {
             setShowAlert("");
+            setTimeoutId(null); // Limpiar el id
           }, 5000);
+          setTimeoutId(newTimeoutId); // Guardar el nuevo id del timeout
         }
         getAllTasks();
         inputRef.current.value = "";
@@ -35,22 +46,21 @@ export const TaskForm = () => {
     } else {
       if (inputRef.current) {
         const task = inputRef?.current?.value;
-        console.log(taskId);
-        console.log(taskState);
-        console.log(task);
         const updatedData = {
           task,
           completed: taskState,
         };
         const result = await updateTask(taskId, updatedData);
-        if (result == 1) {
+        if (result === 1) {
           setInputValue("");
           setTaskState();
           setTaskId(0);
           setShowAlert("edit");
-          setTimeout(() => {
+          const newTimeoutId = setTimeout(() => {
             setShowAlert("");
+            setTimeoutId(null); // Limpiar el id
           }, 5000);
+          setTimeoutId(newTimeoutId); // Guardar el nuevo id del timeout
           getAllTasks();
         }
       }
@@ -63,6 +73,12 @@ export const TaskForm = () => {
     }
   }, [inputValue]);
 
+  function cancelEdit() {
+    setInputValue("");
+    setTaskState();
+    setTaskId(0);
+  }
+
   return (
     <form className="form flex items-center rounded-lg" onSubmit={addNewTask}>
       <input
@@ -72,7 +88,13 @@ export const TaskForm = () => {
         name="task_name"
         placeholder="Write a task"
       />
-
+      {inputValue.trim().length > 0 && (
+        <IoMdClose
+          className="size-6 add-shadow active:border active:border-red-300 text-[#797979]  rounded-full p-1 cursor-pointer hover:text-red-500 
+          hover:bg-red-100 hover:scale-110 transition-all duration-300 ease-in-out"
+          onClick={cancelEdit}
+        />
+      )}
       <button type="submit" className="px-2 cursor-default">
         <svg
           xmlns="http://www.w3.org/2000/svg"

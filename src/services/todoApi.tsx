@@ -16,6 +16,7 @@ export const addTask = async (newTask: string) => {
   try {
     const docRef = await addDoc(collection(db, "tasks"), {
       task: newTask,
+      completed: false,
       timestamp: serverTimestamp(),
     });
     return 1;

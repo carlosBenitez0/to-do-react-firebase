@@ -4,7 +4,7 @@ import { useTasks } from "../context/tasksProvider";
 import { Loader } from "./Loader";
 
 export const TaskList = () => {
-  const { getAllTasks, taskList } = useTasks();
+  const { getAllTasks, taskList, loading } = useTasks();
 
   useEffect(() => {
     getAllTasks();
@@ -16,8 +16,10 @@ export const TaskList = () => {
         taskList.length === 0 ? "items-center justify-center" : ""
       }`}
     >
-      {taskList.length === 0 ? (
+      {loading ? (
         <Loader size={14} />
+      ) : taskList && taskList.length === 0 ? (
+        <p>No pending tasks. Let's write a new task! :D</p>
       ) : (
         taskList &&
         taskList.map((task) => {

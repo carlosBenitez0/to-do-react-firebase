@@ -9,10 +9,20 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [inputValue, setInputValue] = useState("");
   const [taskId, setTaskId] = useState("");
   const [taskState, setTaskState] = useState();
+  const [loading, setLoading] = useState(false);
+  const [firstRender, setFirstRender] = useState(true);
 
   const getAllTasks = async () => {
-    const tasks = await getTasks();
-    setTaskList(tasks);
+    if (firstRender) {
+      setFirstRender(false);
+      setLoading(true);
+      const tasks = await getTasks();
+      setTaskList(tasks);
+      setLoading(false);
+    } else {
+      const tasks = await getTasks();
+      setTaskList(tasks);
+    }
   };
 
   const setCompleted = (id: number, task: string, completed: boolean) => {
@@ -34,6 +44,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
         setInputValue,
         setTaskId,
         setTaskState,
+        loading,
       }}
     >
       {children}
