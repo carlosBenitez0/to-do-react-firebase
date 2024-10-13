@@ -67,7 +67,7 @@ export const Alert = () => {
 
   return (
     <div
-      className={` alert-shadow border-2 rounded-lg p-4 transition-all right-12 top-12 duration-300 ease-linear absolute opacity-100
+      className={` alert-shadow bg-card shadow-alert-shadow border-2 rounded-lg p-4 transition-all right-12 top-12 duration-300 ease-linear absolute opacity-100
       }`}
       style={{
         backgroundColor: style.backgroundColor,

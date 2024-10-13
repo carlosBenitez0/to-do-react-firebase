@@ -40,7 +40,7 @@ export const Task = ({ id, task, completed }: props) => {
 
   return (
     <div
-      className={`task rounded-lg flex items-center justify-between ${
+      className={`task shadow-task transition-all duration-300 ease-linear text-task hover:shadow-task-hover hover:text-task-hover rounded-lg flex items-center justify-between ${
         completed ? "bg-[#bebebe]" : ""
       }`}
     >

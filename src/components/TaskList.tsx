@@ -12,12 +12,12 @@ export const TaskList = () => {
 
   return (
     <div
-      className={`task-list flex flex-col gap-4 my-4 h-[310px] p-4 overflow-auto scrollbar-hide ${
+      className={`task-list rounded-task-list bg-card shadow-card flex flex-col gap-4 my-4 h-[310px] p-4 overflow-auto scrollbar-hide ${
         taskList.length === 0 ? "items-center justify-center" : ""
       }`}
     >
       {loading ? (
-        <Loader size={14} />
+        <Loader />
       ) : taskList && taskList.length === 0 ? (
         <p>No pending tasks. Let's write a new task! :D</p>
       ) : (

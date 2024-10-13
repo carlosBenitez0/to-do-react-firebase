@@ -80,7 +80,10 @@ export const TaskForm = () => {
   }
 
   return (
-    <form className="form flex items-center rounded-lg" onSubmit={addNewTask}>
+    <form
+      className="form rounded-card bg-card shadow-card flex items-center"
+      onSubmit={addNewTask}
+    >
       <input
         ref={inputRef}
         type="text"
@@ -90,8 +93,8 @@ export const TaskForm = () => {
       />
       {inputValue.trim().length > 0 && (
         <IoMdClose
-          className="size-6 add-shadow active:border active:border-red-300 text-[#797979]  rounded-full p-1 cursor-pointer hover:text-red-500 
-          hover:bg-red-100 hover:scale-110 transition-all duration-300 ease-in-out"
+          className="size-6 add-shadow rounded-add-shadow bg-add-shadow shadow-add-shadow active:border active:border-red-300 text-[#797979]   p-1 cursor-pointer hover:text-red-500 
+          hover:bg-red-100 hover:shadow-add-shadow-hover transition-all duration-300 ease-in-out"
           onClick={cancelEdit}
         />
       )}
@@ -102,8 +105,8 @@ export const TaskForm = () => {
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          className="size-6 add-shadow active:border active:border-green-300 text-[#797979]  rounded-full p-1 cursor-pointer hover:text-green-500 
-          hover:bg-slate-100 hover:scale-110 transition-all duration-300 ease-in-out"
+          className="size-6 add-shadow rounded-add-shadow bg-add-shadow shadow-add-shadow active:border active:border-green-300 text-[#797979]  p-1 cursor-pointer hover:text-green-500 
+          hover:bg-slate-100 hover:shadow-add-shadow-hover transition-all duration-300 ease-in-out"
         >
           <path
             stroke-linecap="round"
