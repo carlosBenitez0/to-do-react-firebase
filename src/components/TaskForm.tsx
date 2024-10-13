@@ -5,6 +5,7 @@ import { addTask } from "../services/todoApi";
 export const TaskForm = () => {
   const { getAllTasks } = useTasks();
   const inputRef = useRef<HTMLInputElement>(null);
+  inputRef.current?.focus();
 
   const addNewTask = async (e) => {
     e.preventDefault();
@@ -21,7 +22,7 @@ export const TaskForm = () => {
       <input
         ref={inputRef}
         type="text"
-        className="p-2 w-full bg-transparent outline-none border-none pl-5 py-2 text-[#323232]"
+        className="p-2 w-full bg-transparent outline-none border-none pl-5 py-2 text-[#323232] "
         name="task_name"
         placeholder="Write a task"
       />

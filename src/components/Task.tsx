@@ -14,7 +14,7 @@ export const Task = ({ id, task, completed }: props) => {
   return (
     <div
       className={`task p-2 rounded-lg flex items-center justify-between cursor-pointer ${
-        completed ? "bg-gray-400" : ""
+        completed ? "bg-[#bebebe]" : ""
       }`}
       onClick={() => {
         setCompleted(id, task, !completed);
