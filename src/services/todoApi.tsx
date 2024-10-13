@@ -45,10 +45,10 @@ export const updateTask = async (id, updatedData) => {
   try {
     await updateDoc(taskRef, updatedData);
     console.log("Documento actualizado!");
-    // return 1;
+    return 1;
   } catch (e) {
     console.error("Error al actualizar documento: ", e);
-    // return 0;
+    return 0;
   }
 };
 
@@ -57,7 +57,6 @@ export const deleteTask = async (id) => {
   const taskRef = doc(db, "tasks", id);
   try {
     await deleteDoc(taskRef);
-    console.log("Documento eliminado!");
     return 1;
   } catch (e) {
     console.error("Error al eliminar documento: ", e);

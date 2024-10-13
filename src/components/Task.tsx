@@ -12,7 +12,14 @@ interface props {
 }
 
 export const Task = ({ id, task, completed }: props) => {
-  const { setCompleted, setShowAlert, getAllTasks } = useTasks();
+  const {
+    setCompleted,
+    setShowAlert,
+    getAllTasks,
+    setTaskId,
+    setTaskState,
+    setInputValue,
+  } = useTasks();
 
   const deleteOneTask = async (id: number) => {
     const result = await deleteTask(id);
@@ -23,6 +30,12 @@ export const Task = ({ id, task, completed }: props) => {
         setShowAlert("");
       }, 5000);
     }
+  };
+
+  const editTask = async (id: number, task: string, completed: boolean) => {
+    await setInputValue(task);
+    await setTaskId(id);
+    await setTaskState(completed);
   };
 
   return (
@@ -60,7 +73,12 @@ export const Task = ({ id, task, completed }: props) => {
           </>
         ) : (
           <>
-            <FiEdit3 className="text-xl cursor-pointer" />
+            <FiEdit3
+              className="text-xl cursor-pointer"
+              onClick={() => {
+                editTask(id, task, completed);
+              }}
+            />
             <FiTrash
               className="text-xl cursor-pointer"
               onClick={() => {

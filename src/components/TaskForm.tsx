@@ -1,27 +1,67 @@
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useTasks } from "../context/tasksProvider";
-import { addTask } from "../services/todoApi";
+import { addTask, updateTask } from "../services/todoApi";
+import { IoMdClose } from "react-icons/io";
 
 export const TaskForm = () => {
-  const { getAllTasks, setShowAlert } = useTasks();
+  const {
+    getAllTasks,
+    setShowAlert,
+    inputValue,
+    taskId,
+    taskState,
+    setInputValue,
+    setTaskState,
+    setTaskId,
+  } = useTasks();
   const inputRef = useRef<HTMLInputElement>(null);
   inputRef.current?.focus();
 
   const addNewTask = async (e) => {
     e.preventDefault();
-    if (inputRef.current) {
-      const task = inputRef?.current?.value;
-      const result = await addTask(task);
-      if (result == 1) {
-        setShowAlert("add");
-        setTimeout(() => {
-          setShowAlert("");
-        }, 5000);
+    if (inputValue.trim().length <= 0) {
+      if (inputRef.current) {
+        const task = inputRef?.current?.value;
+        const result = await addTask(task);
+        if (result == 1) {
+          setShowAlert("add");
+          setTimeout(() => {
+            setShowAlert("");
+          }, 5000);
+        }
+        getAllTasks();
+        inputRef.current.value = "";
       }
-      getAllTasks();
-      inputRef.current.value = "";
+    } else {
+      if (inputRef.current) {
+        const task = inputRef?.current?.value;
+        console.log(taskId);
+        console.log(taskState);
+        console.log(task);
+        const updatedData = {
+          task,
+          completed: taskState,
+        };
+        const result = await updateTask(taskId, updatedData);
+        if (result == 1) {
+          setInputValue("");
+          setTaskState();
+          setTaskId(0);
+          setShowAlert("edit");
+          setTimeout(() => {
+            setShowAlert("");
+          }, 5000);
+          getAllTasks();
+        }
+      }
     }
   };
+
+  useEffect(() => {
+    if (inputRef.current) {
+      inputRef.current.value = inputValue;
+    }
+  }, [inputValue]);
 
   return (
     <form className="form flex items-center rounded-lg" onSubmit={addNewTask}>
@@ -32,6 +72,7 @@ export const TaskForm = () => {
         name="task_name"
         placeholder="Write a task"
       />
+
       <button type="submit" className="px-2 cursor-default">
         <svg
           xmlns="http://www.w3.org/2000/svg"

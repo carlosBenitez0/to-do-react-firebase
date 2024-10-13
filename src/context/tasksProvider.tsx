@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useState } from "react";
+import { createContext, ReactNode, useContext, useRef, useState } from "react";
 import { getTasks, updateTask } from "../services/todoApi";
 
 const TasksContext = createContext([]);
@@ -6,6 +6,9 @@ const TasksContext = createContext([]);
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [taskList, setTaskList] = useState([]);
   const [showAlert, setShowAlert] = useState("");
+  const [inputValue, setInputValue] = useState("");
+  const [taskId, setTaskId] = useState("");
+  const [taskState, setTaskState] = useState();
 
   const getAllTasks = async () => {
     const tasks = await getTasks();
@@ -25,6 +28,12 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
         setCompleted,
         showAlert,
         setShowAlert,
+        inputValue,
+        taskId,
+        taskState,
+        setInputValue,
+        setTaskId,
+        setTaskState,
       }}
     >
       {children}

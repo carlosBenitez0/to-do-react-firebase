@@ -59,7 +59,6 @@ export const Alert = () => {
   };
 
   useEffect(() => {
-    console.log(showAlert);
     const { icon, message, style } = getAlertContent();
     setIcon(icon);
     setAlert(message);
