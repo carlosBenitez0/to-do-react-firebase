@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { useTasks } from "../context/tasksProvider";
 import { addTask, updateTask } from "../services/todoApi";
 import { IoMdClose } from "react-icons/io";
+import { useTasks } from "../hooks/useTasks";
 
 export const TaskForm = () => {
   const {

@@ -1,7 +1,6 @@
 import {
   createContext,
   ReactNode,
-  useContext,
   useState,
   Dispatch,
   SetStateAction,
@@ -24,7 +23,9 @@ interface TasksContextType {
   loading: boolean;
 }
 
-const TasksContext = createContext<TasksContextType | undefined>(undefined);
+export const TasksContext = createContext<TasksContextType | undefined>(
+  undefined
+);
 
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [taskList, setTaskList] = useState<Task[]>([]);
@@ -73,13 +74,4 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
       {children}
     </TasksContext.Provider>
   );
-};
-
-export const useTasks = () => {
-  const context = useContext(TasksContext);
-  if (context === undefined) {
-    throw new Error("TasksContext not working");
-  }
-
-  return context;
 };
