@@ -5,19 +5,28 @@ const TasksContext = createContext([]);
 
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [taskList, setTaskList] = useState([]);
+  const [showMessage, setShowMessage] = useState("");
 
   const getAllTasks = async () => {
     const tasks = await getTasks();
     setTaskList(tasks);
   };
 
-  const setCompleted = async (id: number, task: string, completed: boolean) => {
-    await updateTask(id, { task, completed });
+  const setCompleted = (id: number, task: string, completed: boolean) => {
+    updateTask(id, { task, completed });
     getAllTasks();
   };
 
   return (
-    <TasksContext.Provider value={{ taskList, getAllTasks, setCompleted }}>
+    <TasksContext.Provider
+      value={{
+        taskList,
+        getAllTasks,
+        setCompleted,
+        showMessage,
+        setShowMessage,
+      }}
+    >
       {children}
     </TasksContext.Provider>
   );

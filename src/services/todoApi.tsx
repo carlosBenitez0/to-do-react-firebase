@@ -10,6 +10,7 @@ import {
 import { db } from "./firebaseConfig";
 
 // Function to add a new task
+
 export const addTask = async (newTask: string) => {
   if (newTask.trim() === "") return;
   try {
@@ -18,8 +19,10 @@ export const addTask = async (newTask: string) => {
       timestamp: serverTimestamp(),
     });
     console.log("Documento escrito con ID: ", docRef.id);
+    return 1;
   } catch (e) {
     console.error("Error al agregar documento: ", e);
+    return 0;
   }
 };
 
@@ -31,7 +34,7 @@ export const getTasks = async () => {
   const tasks: string[] = [];
   querySnapshot.forEach((doc) => {
     tasks.push({ id: doc.id, ...doc.data() });
-    console.log(doc.id, " => ", doc.data());
+    // console.log(doc.id, " => ", doc.data());
   });
 
   return tasks;
