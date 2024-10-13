@@ -1,8 +1,9 @@
 import { MdOutlinePendingActions } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
-import { useTasks } from "../context/tasksProvider";
+
 import { FiEdit3, FiTrash } from "react-icons/fi";
 import { deleteTask } from "../services/todoApi";
+import { useTasks } from "../hooks/useTasks";
 
 interface Props {
   id: string; // Cambiado a 'string' ya que los IDs de Firebase suelen ser cadenas

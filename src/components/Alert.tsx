@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { useTasks } from "../context/tasksProvider";
 import { IoAdd } from "react-icons/io5";
 import { FiEdit3 } from "react-icons/fi";
 import { FiTrash } from "react-icons/fi";
 import { FaRegAddressBook } from "react-icons/fa6";
 import { AlertStyle } from "../types/taskTypes";
+import { useTasks } from "../hooks/useTasks";
 
 export const Alert = () => {
   const { showAlert } = useTasks();

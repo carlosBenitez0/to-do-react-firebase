@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { Task } from "./Task";
-import { useTasks } from "../context/tasksProvider";
+
 import { Loader } from "./Loader";
+import { useTasks } from "../hooks/useTasks";
 
 export const TaskList = () => {
   const { getAllTasks, taskList, loading } = useTasks();
