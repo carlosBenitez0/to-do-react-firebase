@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useTasks } from "../context/tasksProvider";
 import { IoAdd } from "react-icons/io5";
-import { FaRegAddressBook } from "react-icons/fa";
+
+import { FiTrash } from "react-icons/fi";
 
 export const Alert = () => {
   const { showAlert } = useTasks();
@@ -12,9 +13,12 @@ export const Alert = () => {
     borderColor: string;
     color: string;
   }>({
-    backgroundColor: "",
+    /* backgroundColor: "",
     borderColor: "",
-    color: "",
+    color: "", */
+    backgroundColor: "#f8d7da",
+    borderColor: "#f5c6cb",
+    color: "#721c24",
   });
 
   const getAlertContent = () => {
@@ -27,6 +31,26 @@ export const Alert = () => {
             backgroundColor: "#d4edda",
             borderColor: "#c3e6cb",
             color: "#155724",
+          },
+        };
+      case "delete":
+        return {
+          icon: <FiTrash />,
+          message: "Tarea eliminada!",
+          style: {
+            backgroundColor: "#f8d7da",
+            borderColor: "#f5c6cb",
+            color: "#721c24",
+          },
+        };
+      case "":
+        return {
+          icon: <FiTrash />,
+          message: "Tarea eliminada!",
+          style: {
+            backgroundColor: "#f8d7da",
+            borderColor: "#f5c6cb",
+            color: "#721c24",
           },
         };
 
@@ -53,7 +77,7 @@ export const Alert = () => {
         color: style.color,
       }}
     >
-      {showAlert === "" ? (
+      {/* {showAlert === "" ? (
         <div>
           <FaRegAddressBook className="text-2xl text-center text-gray-500" />
         </div>
@@ -62,7 +86,10 @@ export const Alert = () => {
           <div className="text-2xl text-left">{icon}</div>
           <div className="">{message}</div>
         </>
-      )}
+      )} */}
+
+      <div className="text-2xl text-left">{icon}</div>
+      <div className="">{message}</div>
     </div>
   );
 };
