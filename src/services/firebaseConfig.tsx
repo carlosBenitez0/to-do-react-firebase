@@ -1,7 +1,6 @@
 // firebaseConfig.js
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-// import { getStorage } from "firebase/storage";
 
 export {
   collection,
@@ -28,6 +27,3 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 // Inicializar Firestore
 export const db = getFirestore(firebaseApp);
-// export const storage = getStorage(firebaseApp);
-
-// setPersistence(auth, browserLocalPersistence);

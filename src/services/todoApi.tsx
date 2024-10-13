@@ -8,13 +8,12 @@ import {
   getDocs,
 } from "./firebaseConfig";
 import { db } from "./firebaseConfig";
+import { Task, TaskInput } from "../types/taskTypes";
 
-// Function to add a new task
-
-export const addTask = async (newTask: string) => {
-  if (newTask.trim() === "") return;
+export const addTask = async (newTask: string): Promise<number> => {
+  if (newTask.trim() === "") return 0;
   try {
-    const docRef = await addDoc(collection(db, "tasks"), {
+    await addDoc(collection(db, "tasks"), {
       task: newTask,
       completed: false,
       timestamp: serverTimestamp(),
@@ -26,26 +25,30 @@ export const addTask = async (newTask: string) => {
   }
 };
 
-// Function to get all tasks
-export const getTasks = async () => {
+export const getTasks = async (): Promise<Task[]> => {
   const querySnapshot = await getDocs(
     query(collection(db, "tasks"), orderBy("timestamp", "asc"))
   );
-  const tasks: string[] = [];
+  const tasks: Task[] = [];
   querySnapshot.forEach((doc) => {
-    tasks.push({ id: doc.id, ...doc.data() });
-    // console.log(doc.id, " => ", doc.data());
+    const data = doc.data();
+    tasks.push({
+      id: doc.id,
+      task: data.task,
+      completed: data.completed,
+      timestamp: data.timestamp,
+    } as Task);
   });
-
   return tasks;
 };
 
-// Function to update an existing task
-export const updateTask = async (id, updatedData) => {
+export const updateTask = async (
+  id: string,
+  updatedData: TaskInput
+): Promise<number> => {
   const taskRef = doc(db, "tasks", id);
   try {
-    await updateDoc(taskRef, updatedData);
-    console.log("Documento actualizado!");
+    await updateDoc(taskRef, { ...updatedData });
     return 1;
   } catch (e) {
     console.error("Error al actualizar documento: ", e);
@@ -53,8 +56,7 @@ export const updateTask = async (id, updatedData) => {
   }
 };
 
-// Function to delete an existing task
-export const deleteTask = async (id) => {
+export const deleteTask = async (id: string): Promise<number> => {
   const taskRef = doc(db, "tasks", id);
   try {
     await deleteDoc(taskRef);

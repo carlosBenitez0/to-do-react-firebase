@@ -4,16 +4,13 @@ import { IoAdd } from "react-icons/io5";
 import { FiEdit3 } from "react-icons/fi";
 import { FiTrash } from "react-icons/fi";
 import { FaRegAddressBook } from "react-icons/fa6";
+import { AlertStyle } from "../types/taskTypes";
 
 export const Alert = () => {
   const { showAlert } = useTasks();
-  const [icon, setIcon] = useState();
+  const [icon, setIcon] = useState<JSX.Element | string>("");
   const [message, setAlert] = useState<string>("");
-  const [style, setStyle] = useState<{
-    backgroundColor: string;
-    borderColor: string;
-    color: string;
-  }>({
+  const [style, setStyle] = useState<Partial<AlertStyle>>({
     backgroundColor: "",
     borderColor: "",
     color: "",

@@ -1,16 +1,39 @@
-import { createContext, ReactNode, useContext, useRef, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useContext,
+  useState,
+  Dispatch,
+  SetStateAction,
+} from "react";
 import { getTasks, updateTask } from "../services/todoApi";
+import { Task } from "../types/taskTypes";
 
-const TasksContext = createContext([]);
+interface TasksContextType {
+  taskList: Task[];
+  getAllTasks: () => Promise<void>;
+  setCompleted: (id: string, task: string, completed: boolean) => void;
+  showAlert: string;
+  setShowAlert: Dispatch<SetStateAction<string>>;
+  inputValue: string;
+  setInputValue: Dispatch<SetStateAction<string>>;
+  taskId: string;
+  setTaskId: Dispatch<SetStateAction<string>>;
+  taskState: boolean | undefined;
+  setTaskState: Dispatch<SetStateAction<boolean | undefined>>;
+  loading: boolean;
+}
+
+const TasksContext = createContext<TasksContextType | undefined>(undefined);
 
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
-  const [taskList, setTaskList] = useState([]);
-  const [showAlert, setShowAlert] = useState("");
-  const [inputValue, setInputValue] = useState("");
-  const [taskId, setTaskId] = useState("");
-  const [taskState, setTaskState] = useState();
-  const [loading, setLoading] = useState(false);
-  const [firstRender, setFirstRender] = useState(true);
+  const [taskList, setTaskList] = useState<Task[]>([]);
+  const [showAlert, setShowAlert] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>("");
+  const [taskId, setTaskId] = useState<string>("");
+  const [taskState, setTaskState] = useState<boolean | undefined>(undefined);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [firstRender, setFirstRender] = useState<boolean>(true);
 
   const getAllTasks = async () => {
     if (firstRender) {
@@ -25,7 +48,7 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const setCompleted = (id: number, task: string, completed: boolean) => {
+  const setCompleted = (id: string, task: string, completed: boolean) => {
     updateTask(id, { task, completed });
     getAllTasks();
   };
@@ -39,10 +62,10 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
         showAlert,
         setShowAlert,
         inputValue,
-        taskId,
-        taskState,
         setInputValue,
+        taskId,
         setTaskId,
+        taskState,
         setTaskState,
         loading,
       }}

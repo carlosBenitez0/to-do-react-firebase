@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { useTasks } from "../context/tasksProvider";
 import { addTask, updateTask } from "../services/todoApi";
 import { IoMdClose } from "react-icons/io";
@@ -19,7 +19,7 @@ export const TaskForm = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   inputRef.current?.focus();
 
-  const addNewTask = async (e) => {
+  const addNewTask = async (e: FormEvent) => {
     e.preventDefault();
 
     // Limpiar alertas anteriores
@@ -53,8 +53,8 @@ export const TaskForm = () => {
         const result = await updateTask(taskId, updatedData);
         if (result === 1) {
           setInputValue("");
-          setTaskState();
-          setTaskId(0);
+          setTaskState(undefined);
+          setTaskId("");
           setShowAlert("edit");
           const newTimeoutId = setTimeout(() => {
             setShowAlert("");
@@ -75,8 +75,8 @@ export const TaskForm = () => {
 
   function cancelEdit() {
     setInputValue("");
-    setTaskState();
-    setTaskId(0);
+    setTaskState(undefined);
+    setTaskId("");
   }
 
   return (
@@ -90,6 +90,7 @@ export const TaskForm = () => {
         className="p-2 w-full bg-transparent outline-none border-none pl-5 py-2 text-[#323232] "
         name="task_name"
         placeholder="Write a task"
+        autoComplete="off"
       />
       {inputValue.trim().length > 0 && (
         <IoMdClose
