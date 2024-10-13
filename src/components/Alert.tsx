@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useTasks } from "../context/tasksProvider";
 import { IoAdd } from "react-icons/io5";
 import { FiEdit3 } from "react-icons/fi";
-
 import { FiTrash } from "react-icons/fi";
+import { FaRegAddressBook } from "react-icons/fa6";
 
 export const Alert = () => {
   const { showAlert } = useTasks();
@@ -14,12 +14,9 @@ export const Alert = () => {
     borderColor: string;
     color: string;
   }>({
-    /* backgroundColor: "",
+    backgroundColor: "",
     borderColor: "",
-    color: "", */
-    backgroundColor: "#f8d7da",
-    borderColor: "#f5c6cb",
-    color: "#721c24",
+    color: "",
   });
 
   const getAlertContent = () => {
@@ -45,7 +42,6 @@ export const Alert = () => {
             color: "#721c24",
           },
         };
-      case "":
       case "edit":
         return {
           icon: <FiEdit3 />,
@@ -80,7 +76,7 @@ export const Alert = () => {
         color: style.color,
       }}
     >
-      {/* {showAlert === "" ? (
+      {showAlert === "" ? (
         <div>
           <FaRegAddressBook className="text-2xl text-center text-gray-500" />
         </div>
@@ -89,10 +85,7 @@ export const Alert = () => {
           <div className="text-2xl text-left">{icon}</div>
           <div className="">{message}</div>
         </>
-      )} */}
-
-      <div className="text-2xl text-left">{icon}</div>
-      <div className="">{message}</div>
+      )}
     </div>
   );
 };

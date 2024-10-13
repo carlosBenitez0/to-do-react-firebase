@@ -18,7 +18,6 @@ export const addTask = async (newTask: string) => {
       task: newTask,
       timestamp: serverTimestamp(),
     });
-    console.log("Documento escrito con ID: ", docRef.id);
     return 1;
   } catch (e) {
     console.error("Error al agregar documento: ", e);
@@ -46,8 +45,10 @@ export const updateTask = async (id, updatedData) => {
   try {
     await updateDoc(taskRef, updatedData);
     console.log("Documento actualizado!");
+    // return 1;
   } catch (e) {
     console.error("Error al actualizar documento: ", e);
+    // return 0;
   }
 };
 
@@ -57,7 +58,9 @@ export const deleteTask = async (id) => {
   try {
     await deleteDoc(taskRef);
     console.log("Documento eliminado!");
+    return 1;
   } catch (e) {
     console.error("Error al eliminar documento: ", e);
+    return 0;
   }
 };
