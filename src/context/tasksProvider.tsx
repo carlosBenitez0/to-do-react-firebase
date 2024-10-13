@@ -5,7 +5,7 @@ const TasksContext = createContext([]);
 
 export const TaskProvider = ({ children }: { children: ReactNode }) => {
   const [taskList, setTaskList] = useState([]);
-  const [showMessage, setShowMessage] = useState("");
+  const [showAlert, setShowAlert] = useState("");
 
   const getAllTasks = async () => {
     const tasks = await getTasks();
@@ -23,8 +23,8 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
         taskList,
         getAllTasks,
         setCompleted,
-        showMessage,
-        setShowMessage,
+        showAlert,
+        setShowAlert,
       }}
     >
       {children}

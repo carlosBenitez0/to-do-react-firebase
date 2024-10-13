@@ -3,7 +3,7 @@ import { useTasks } from "../context/tasksProvider";
 import { addTask } from "../services/todoApi";
 
 export const TaskForm = () => {
-  const { getAllTasks, setShowMessage } = useTasks();
+  const { getAllTasks, setShowAlert } = useTasks();
   const inputRef = useRef<HTMLInputElement>(null);
   inputRef.current?.focus();
 
@@ -13,9 +13,9 @@ export const TaskForm = () => {
       const task = inputRef?.current?.value;
       const result = await addTask(task);
       if (result == 1) {
-        setShowMessage("add");
+        setShowAlert("add");
         setTimeout(() => {
-          setShowMessage("");
+          setShowAlert("");
         }, 5000);
       }
       getAllTasks();
