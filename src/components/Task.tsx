@@ -13,17 +13,21 @@ export const Task = ({ id, task, completed }: props) => {
 
   return (
     <div
-      className="task p-2 rounded-lg flex items-center justify-between cursor-pointer"
+      className={`task p-2 rounded-lg flex items-center justify-between cursor-pointer ${
+        completed ? "bg-gray-400" : ""
+      }`}
       onClick={() => {
         setCompleted(id, task, !completed);
       }}
     >
       <p className={completed ? "line-through" : ""}>{task}</p>
-      {completed ? (
-        <FaCheck className="text-xl" />
-      ) : (
-        <MdOutlinePendingActions className="text-xl" />
-      )}
+      <div className="min-w-xl">
+        {completed ? (
+          <FaCheck className="text-xl" />
+        ) : (
+          <MdOutlinePendingActions className="text-xl" />
+        )}
+      </div>
     </div>
   );
 };

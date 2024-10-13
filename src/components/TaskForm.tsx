@@ -1,10 +1,23 @@
 import { useRef } from "react";
+import { useTasks } from "../context/tasksProvider";
+import { addTask } from "../services/todoApi";
 
 export const TaskForm = () => {
+  const { getAllTasks } = useTasks();
   const inputRef = useRef<HTMLInputElement>(null);
 
+  const addNewTask = async (e) => {
+    e.preventDefault();
+    if (inputRef.current) {
+      const task = inputRef?.current?.value;
+      await addTask(task);
+      getAllTasks();
+      inputRef.current.value = "";
+    }
+  };
+
   return (
-    <form className="form flex items-center rounded-lg">
+    <form className="form flex items-center rounded-lg" onSubmit={addNewTask}>
       <input
         ref={inputRef}
         type="text"

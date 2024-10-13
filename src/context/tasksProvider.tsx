@@ -11,8 +11,8 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
     setTaskList(tasks);
   };
 
-  const setCompleted = (id: number, task: string, completed: boolean) => {
-    updateTask(id, { task, completed });
+  const setCompleted = async (id: number, task: string, completed: boolean) => {
+    await updateTask(id, { task, completed });
     getAllTasks();
   };
 

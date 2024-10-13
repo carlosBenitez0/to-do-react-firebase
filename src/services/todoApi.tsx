@@ -11,6 +11,7 @@ import { db } from "./firebaseConfig";
 
 // Function to add a new task
 export const addTask = async (newTask: string) => {
+  if (newTask.trim() === "") return;
   try {
     const docRef = await addDoc(collection(db, "tasks"), {
       task: newTask,
@@ -24,7 +25,9 @@ export const addTask = async (newTask: string) => {
 
 // Function to get all tasks
 export const getTasks = async () => {
-  const querySnapshot = await getDocs(collection(db, "tasks"));
+  const querySnapshot = await getDocs(
+    query(collection(db, "tasks"), orderBy("timestamp", "asc"))
+  );
   const tasks: string[] = [];
   querySnapshot.forEach((doc) => {
     tasks.push({ id: doc.id, ...doc.data() });
