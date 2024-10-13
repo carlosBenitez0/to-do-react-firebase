@@ -1,3 +1,4 @@
+import { orderBy, query, serverTimestamp } from "firebase/firestore";
 import {
   collection,
   addDoc,
@@ -11,7 +12,10 @@ import { db } from "./firebaseConfig";
 // Function to add a new task
 export const addTask = async (newTask: string) => {
   try {
-    const docRef = await addDoc(collection(db, "tasks"), newTask);
+    const docRef = await addDoc(collection(db, "tasks"), {
+      task: newTask,
+      timestamp: serverTimestamp(),
+    });
     console.log("Documento escrito con ID: ", docRef.id);
   } catch (e) {
     console.error("Error al agregar documento: ", e);
@@ -24,7 +28,9 @@ export const getTasks = async () => {
   const tasks: string[] = [];
   querySnapshot.forEach((doc) => {
     tasks.push({ id: doc.id, ...doc.data() });
+    console.log(doc.id, " => ", doc.data());
   });
+
   return tasks;
 };
 

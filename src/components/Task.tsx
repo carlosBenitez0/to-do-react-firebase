@@ -1,14 +1,16 @@
 import { MdOutlinePendingActions } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
+import { useTasks } from "../context/tasksProvider";
 
 interface props {
   id: number;
   task: string;
   completed: boolean;
-  setCompleted: (id: number, task: string, completed: boolean) => void;
 }
 
-export const Task = ({ id, task, completed, setCompleted }: props) => {
+export const Task = ({ id, task, completed }: props) => {
+  const { setCompleted } = useTasks();
+
   return (
     <div
       className="task p-2 rounded-lg flex items-center justify-between cursor-pointer"

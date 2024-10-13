@@ -1,5 +1,5 @@
 import { createContext, ReactNode, useContext, useState } from "react";
-import { getTasks } from "../services/todoApi";
+import { getTasks, updateTask } from "../services/todoApi";
 
 const TasksContext = createContext([]);
 
@@ -12,8 +12,10 @@ export const TaskProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const setCompleted = (id: number, task: string, completed: boolean) => {
-    // TODO
+    updateTask(id, { task, completed });
+    getAllTasks();
   };
+
   return (
     <TasksContext.Provider value={{ taskList, getAllTasks, setCompleted }}>
       {children}

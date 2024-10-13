@@ -1,7 +1,12 @@
+import { useRef } from "react";
+
 export const TaskForm = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   return (
     <form className="form flex items-center rounded-lg">
       <input
+        ref={inputRef}
         type="text"
         className="p-2 w-full bg-transparent outline-none border-none pl-5 py-2 text-[#323232]"
         name="task_name"
@@ -14,7 +19,7 @@ export const TaskForm = () => {
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          className="size-6 add-shadow text-[#797979]  rounded-full p-1 cursor-pointer hover:text-green-500 
+          className="size-6 add-shadow active:border active:border-green-300 text-[#797979]  rounded-full p-1 cursor-pointer hover:text-green-500 
           hover:bg-slate-100 hover:scale-110 transition-all duration-300 ease-in-out"
         >
           <path
