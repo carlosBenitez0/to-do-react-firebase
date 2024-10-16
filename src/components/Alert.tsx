@@ -5,6 +5,7 @@ import { FiTrash } from "react-icons/fi";
 import { FaRegAddressBook } from "react-icons/fa6";
 import { AlertStyle } from "../types/taskTypes";
 import { useTasks } from "../hooks/useTasks";
+import { motion } from "framer-motion";
 
 export const Alert = () => {
   const { showAlert } = useTasks();
@@ -62,6 +63,18 @@ export const Alert = () => {
     setStyle(style);
   }, [showAlert]);
 
+  const contentVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+
+      transition: {
+        duration: 0.5,
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
     <div
       className={` alert-shadow bg-card shadow-alert-shadow border-2 rounded-lg p-4 transition-all right-12 top-12 duration-300 ease-linear absolute opacity-100
@@ -78,8 +91,29 @@ export const Alert = () => {
         </div>
       ) : (
         <>
-          <div className="text-2xl text-left">{icon}</div>
-          <div className="">{message}</div>
+          <motion.div
+            variants={contentVariants}
+            initial="hidden"
+            animate="visible"
+            className="flex flex-col items-start space-y-2"
+          >
+            <motion.div
+              variants={contentVariants}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-col items-start space-y-2"
+            >
+              {icon}
+            </motion.div>
+            <motion.div
+              variants={contentVariants}
+              initial="hidden"
+              animate="visible"
+              className="flex flex-col items-start space-y-2"
+            >
+              {message}
+            </motion.div>
+          </motion.div>
         </>
       )}
     </div>
